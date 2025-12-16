@@ -11,7 +11,7 @@ const QuillEditor = dynamic(() => import("./quill-editor-client"), { ssr: false 
 
 export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorProps) {
   return (
-    <div className="border rounded-md">
+    <div className="border min-h-[150px] rounded-md" suppressHydrationWarning>
       <QuillEditor value={value} onChange={onChange} placeholder={placeholder} />
     </div>
   )
