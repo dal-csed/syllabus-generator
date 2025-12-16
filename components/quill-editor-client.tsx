@@ -93,5 +93,5 @@ export default function QuillEditorClient({ value, onChange, placeholder }: Quil
     }
   }, [value])
 
-  return <div ref={containerRef} className="min-h-[150px]" />
+  return <div ref={containerRef} className="min-h-[150px] [&_.ql-editor]:min-h-[300px]" />
 }
