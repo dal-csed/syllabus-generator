@@ -9,22 +9,42 @@ interface QuillEditorClientProps {
 }
 
 export default function QuillEditorClient({ value, onChange, placeholder }: QuillEditorClientProps) {
-  const editorRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const quillRef = useRef<any>(null)
   const isUpdatingRef = useRef(false)
+  const onChangeRef = useRef(onChange)
 
   useEffect(() => {
+    onChangeRef.current = onChange
+  }, [onChange])
+
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    // Clear the container to prevent double initialization issues (double toolbars)
+    containerRef.current.innerHTML = ""
+
+    // Create a dedicated element for the editor
+    const editorElement = document.createElement("div")
+    containerRef.current.appendChild(editorElement)
+
+    let isCancelled = false
+
     const initQuill = async () => {
-      if (!editorRef.current || quillRef.current) return
-
-      const link = document.createElement("link")
-      link.rel = "stylesheet"
-      link.href = "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
-      document.head.appendChild(link)
-
       const Quill = (await import("quill")).default
 
-      const quill = new Quill(editorRef.current, {
+      if (isCancelled || !editorElement.isConnected) return
+
+      // Add CSS if not present, using ID to prevent duplicates
+      if (!document.getElementById("quill-snow-css")) {
+        const link = document.createElement("link")
+        link.id = "quill-snow-css"
+        link.rel = "stylesheet"
+        link.href = "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
+        document.head.appendChild(link)
+      }
+
+      const quill = new Quill(editorElement, {
         theme: "snow",
         placeholder: placeholder || "Enter text...",
         modules: {
@@ -44,7 +64,7 @@ export default function QuillEditorClient({ value, onChange, placeholder }: Quil
 
       quill.on("text-change", () => {
         if (!isUpdatingRef.current) {
-          onChange(quill.root.innerHTML)
+          onChangeRef.current(quill.root.innerHTML)
         }
       })
 
@@ -54,11 +74,16 @@ export default function QuillEditorClient({ value, onChange, placeholder }: Quil
     initQuill()
 
     return () => {
+      isCancelled = true
       if (quillRef.current) {
+        quillRef.current.off("text-change")
         quillRef.current = null
       }
+      if (containerRef.current) {
+        containerRef.current.innerHTML = ""
+      }
     }
-  }, [placeholder, onChange])
+  }, [placeholder])
 
   useEffect(() => {
     if (quillRef.current && value !== quillRef.current.root.innerHTML) {
@@ -68,5 +93,5 @@ export default function QuillEditorClient({ value, onChange, placeholder }: Quil
     }
   }, [value])
 
-  return <div ref={editorRef} className="min-h-[150px]" />
+  return <div ref={containerRef} className="min-h-[150px] [&_.ql-editor]:min-h-[300px]" />
 }

@@ -1,123 +1,142 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Plus, Trash2, FileDown } from "lucide-react"
-import { RichTextEditor } from "@/components/rich-text-editor"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Plus, Trash2, FileDown } from "lucide-react";
+import { RichTextEditor } from "@/components/rich-text-editor";
 
 interface TA {
-  name: string
-  email: string
+  name: string;
+  email: string;
 }
 
 interface Assignment {
-  title: string
-  date: string
-  description: string
+  title: string;
+  date: string;
+  description: string;
 }
 
 interface EvaluationItem {
-  name: string
-  percentage: string
-  description: string
+  name: string;
+  percentage: string;
+  description: string;
 }
 
 export default function SyllabusGenerator() {
-  const [isGenerating, setIsGenerating] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // Course info
-  const [courseNumber, setCourseNumber] = useState("")
-  const [courseName, setCourseName] = useState("")
+  const [courseNumber, setCourseNumber] = useState("");
+  const [courseName, setCourseName] = useState("");
 
   // Instructor and course info
-  const [instructorName, setInstructorName] = useState("")
-  const [office, setOffice] = useState("")
-  const [email, setEmail] = useState("")
-  const [officeHours, setOfficeHours] = useState("")
-  const [classTime, setClassTime] = useState("")
-  const [classroom, setClassroom] = useState("")
-  const [labTime, setLabTime] = useState("")
-  const [labRoom, setLabRoom] = useState("")
-  const [homepage, setHomepage] = useState("")
-  const [courseMailList, setCourseMailList] = useState("")
+  const [instructorName, setInstructorName] = useState("");
+  const [office, setOffice] = useState("");
+  const [email, setEmail] = useState("");
+  const [officeHours, setOfficeHours] = useState("");
+  const [classTime, setClassTime] = useState("");
+  const [classroom, setClassroom] = useState("");
+  const [labTime, setLabTime] = useState("");
+  const [labRoom, setLabRoom] = useState("");
+  const [homepage, setHomepage] = useState("");
+  const [courseMailList, setCourseMailList] = useState("");
 
   // Dynamic lists
-  const [tas, setTas] = useState<TA[]>([{ name: "", email: "" }])
-  const [assignments, setAssignments] = useState<Assignment[]>([{ title: "", date: "", description: "" }])
-  const [evaluationCriteria, setEvaluationCriteria] = useState<EvaluationItem[]>([
-    { name: "", percentage: "", description: "" },
-  ])
+  const [tas, setTas] = useState<TA[]>([{ name: "", email: "" }]);
+  const [assignments, setAssignments] = useState<Assignment[]>([
+    { title: "", date: "", description: "" },
+  ]);
+  const [evaluationCriteria, setEvaluationCriteria] = useState<
+    EvaluationItem[]
+  >([{ name: "", percentage: "", description: "" }]);
 
   // Important dates
-  const [importantDates, setImportantDates] = useState("")
+  const [importantDates, setImportantDates] = useState("");
 
   // Course details
-  const [courseDescription, setCourseDescription] = useState("")
-  const [learningOutcomes, setLearningOutcomes] = useState("")
-  const [courseRationale, setCourseRationale] = useState("")
-  const [classFormat, setClassFormat] = useState("")
-  const [notes, setNotes] = useState("")
-  const [studentDeclaration, setStudentDeclaration] = useState("")
-  const [examRequirements, setExamRequirements] = useState("")
-  const [academicStandards, setAcademicStandards] = useState("")
-  const [requiredTexts, setRequiredTexts] = useState("")
-  const [prerequisites, setPrerequisites] = useState("")
-  const [topicsList, setTopicsList] = useState("")
+  const [courseDescription, setCourseDescription] = useState("");
+  const [learningOutcomes, setLearningOutcomes] = useState("");
+  const [courseRationale, setCourseRationale] = useState("");
+  const [classFormat, setClassFormat] = useState("");
+  const [notes, setNotes] = useState("");
+  const [studentDeclaration, setStudentDeclaration] = useState("");
+  const [examRequirements, setExamRequirements] = useState("");
+  const [academicStandards, setAcademicStandards] = useState("");
+  const [requiredTexts, setRequiredTexts] = useState("");
+  const [prerequisites, setPrerequisites] = useState("");
+  const [topicsList, setTopicsList] = useState("");
 
   const addTA = () => {
-    setTas([...tas, { name: "", email: "" }])
-  }
+    setTas([...tas, { name: "", email: "" }]);
+  };
 
   const removeTA = (index: number) => {
     if (tas.length > 1) {
-      setTas(tas.filter((_, i) => i !== index))
+      setTas(tas.filter((_, i) => i !== index));
     }
-  }
+  };
 
   const updateTA = (index: number, field: keyof TA, value: string) => {
-    const newTas = [...tas]
-    newTas[index][field] = value
-    setTas(newTas)
-  }
+    const newTas = [...tas];
+    newTas[index][field] = value;
+    setTas(newTas);
+  };
 
   const addAssignment = () => {
-    setAssignments([...assignments, { title: "", date: "", description: "" }])
-  }
+    setAssignments([...assignments, { title: "", date: "", description: "" }]);
+  };
 
   const removeAssignment = (index: number) => {
     if (assignments.length > 1) {
-      setAssignments(assignments.filter((_, i) => i !== index))
+      setAssignments(assignments.filter((_, i) => i !== index));
     }
-  }
+  };
 
-  const updateAssignment = (index: number, field: keyof Assignment, value: string) => {
-    const newAssignments = [...assignments]
-    newAssignments[index][field] = value
-    setAssignments(newAssignments)
-  }
+  const updateAssignment = (
+    index: number,
+    field: keyof Assignment,
+    value: string
+  ) => {
+    const newAssignments = [...assignments];
+    newAssignments[index][field] = value;
+    setAssignments(newAssignments);
+  };
 
   const addEvaluationItem = () => {
-    setEvaluationCriteria([...evaluationCriteria, { name: "", percentage: "", description: "" }])
-  }
+    setEvaluationCriteria([
+      ...evaluationCriteria,
+      { name: "", percentage: "", description: "" },
+    ]);
+  };
 
   const removeEvaluationItem = (index: number) => {
     if (evaluationCriteria.length > 1) {
-      setEvaluationCriteria(evaluationCriteria.filter((_, i) => i !== index))
+      setEvaluationCriteria(evaluationCriteria.filter((_, i) => i !== index));
     }
-  }
+  };
 
-  const updateEvaluationItem = (index: number, field: keyof EvaluationItem, value: string) => {
-    const newItems = [...evaluationCriteria]
-    newItems[index][field] = value
-    setEvaluationCriteria(newItems)
-  }
+  const updateEvaluationItem = (
+    index: number,
+    field: keyof EvaluationItem,
+    value: string
+  ) => {
+    const newItems = [...evaluationCriteria];
+    newItems[index][field] = value;
+    setEvaluationCriteria(newItems);
+  };
 
   const handleGenerateSyllabus = async () => {
-    setIsGenerating(true)
+    setIsGenerating(true);
     try {
       const formData = {
         course_number: courseNumber,
@@ -133,13 +152,17 @@ export default function SyllabusGenerator() {
         homepage,
         course_mail_list: courseMailList,
         tas: tas.filter((ta) => ta.name || ta.email),
-        assignments: assignments.filter((a) => a.title || a.date || a.description),
+        assignments: assignments.filter(
+          (a) => a.title || a.date || a.description
+        ),
         important_dates: importantDates,
         course_description: courseDescription,
         learning_outcomes: learningOutcomes,
         course_rationale: courseRationale,
         class_format: classFormat,
-        evaluation_criteria: evaluationCriteria.filter((item) => item.name || item.percentage || item.description),
+        evaluation_criteria: evaluationCriteria.filter(
+          (item) => item.name || item.percentage || item.description
+        ),
         notes,
         student_declaration: studentDeclaration,
         exam_requirements: examRequirements,
@@ -147,7 +170,7 @@ export default function SyllabusGenerator() {
         required_texts: requiredTexts,
         prerequisites,
         topics_list: topicsList,
-      }
+      };
 
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -155,38 +178,43 @@ export default function SyllabusGenerator() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        console.error("[v0] Server error:", errorData)
-        throw new Error(errorData.error || "Failed to generate syllabus")
+        const errorData = await response.json();
+        console.error("[v0] Server error:", errorData);
+        throw new Error(errorData.error || "Failed to generate syllabus");
       }
 
-      const blob = await response.blob()
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement("a")
-      a.href = url
-      a.download = `${courseNumber || "course"}-syllabus.docx`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${courseNumber || "course"}-syllabus.docx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("[v0] Error generating syllabus:", error)
-      alert("Failed to generate syllabus. Please check your inputs and try again.")
+      console.error("[v0] Error generating syllabus:", error);
+      alert(
+        "Failed to generate syllabus. Please check your inputs and try again."
+      );
     } finally {
-      setIsGenerating(false)
+      setIsGenerating(false);
     }
-  }
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-background to-secondary/10 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-2 text-balance">Syllabus Generator</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2 text-balance">
+            Create your Syllabus
+          </h1>
           <p className="text-muted-foreground text-pretty">
-            Fill in your course details and generate a customized syllabus document
+            Fill in your course details and generate a customized syllabus
+            document
           </p>
         </div>
 
@@ -194,7 +222,9 @@ export default function SyllabusGenerator() {
           {/* Course Information */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Course Information</CardTitle>
+              <CardTitle className="text-foreground">
+                Course Information
+              </CardTitle>
               <CardDescription>Enter the basic course details</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -224,8 +254,12 @@ export default function SyllabusGenerator() {
           {/* Instructor Information */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Instructor Information</CardTitle>
-              <CardDescription>Enter your contact details and office information</CardDescription>
+              <CardTitle className="text-foreground">
+                Instructor Information
+              </CardTitle>
+              <CardDescription>
+                Enter your contact details and office information
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
@@ -240,7 +274,12 @@ export default function SyllabusGenerator() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="office">Office</Label>
-                  <Input id="office" value={office} onChange={(e) => setOffice(e.target.value)} placeholder="CS 123" />
+                  <Input
+                    id="office"
+                    value={office}
+                    onChange={(e) => setOffice(e.target.value)}
+                    placeholder="CS 123"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
@@ -322,8 +361,12 @@ export default function SyllabusGenerator() {
           {/* Teaching Assistants */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Teaching Assistants</CardTitle>
-              <CardDescription>Add teaching assistants for your course</CardDescription>
+              <CardTitle className="text-foreground">
+                Teaching Assistants
+              </CardTitle>
+              <CardDescription>
+                Add teaching assistants for your course
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {tas.map((ta, index) => (
@@ -359,7 +402,12 @@ export default function SyllabusGenerator() {
                   </Button>
                 </div>
               ))}
-              <Button type="button" variant="outline" onClick={addTA} className="w-full bg-transparent">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={addTA}
+                className="w-full bg-transparent"
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Teaching Assistant
               </Button>
@@ -370,37 +418,60 @@ export default function SyllabusGenerator() {
           <Card className="border-border shadow-sm">
             <CardHeader>
               <CardTitle className="text-foreground">Assignments</CardTitle>
-              <CardDescription>Define assignment titles, due dates, and descriptions</CardDescription>
+              <CardDescription>
+                Define assignment titles, due dates, and descriptions
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {assignments.map((assignment, index) => (
-                <div key={index} className="space-y-3 p-4 border border-border rounded-lg">
+                <div
+                  key={index}
+                  className="space-y-3 p-4 border border-border rounded-lg"
+                >
                   <div className="flex gap-4 items-start">
                     <div className="flex-1 space-y-3">
-                      <div className="space-y-2">
-                        <Label htmlFor={`assignment-title-${index}`}>Title</Label>
-                        <Input
-                          id={`assignment-title-${index}`}
-                          value={assignment.title}
-                          onChange={(e) => updateAssignment(index, "title", e.target.value)}
-                          placeholder="Assignment 1"
-                        />
+                      <div className="flex gap-4">
+                        <div className="flex-1 space-y-2">
+                          <Label htmlFor={`assignment-title-${index}`}>
+                            Title
+                          </Label>
+                          <Input
+                            id={`assignment-title-${index}`}
+                            value={assignment.title}
+                            onChange={(e) =>
+                              updateAssignment(index, "title", e.target.value)
+                            }
+                            placeholder="Assignment 1"
+                          />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <Label htmlFor={`assignment-date-${index}`}>
+                            Due Date
+                          </Label>
+                          <Input
+                            id={`assignment-date-${index}`}
+                            value={assignment.date}
+                            onChange={(e) =>
+                              updateAssignment(index, "date", e.target.value)
+                            }
+                            placeholder="January 21"
+                          />
+                        </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor={`assignment-date-${index}`}>Due Date</Label>
-                        <Input
-                          id={`assignment-date-${index}`}
-                          value={assignment.date}
-                          onChange={(e) => updateAssignment(index, "date", e.target.value)}
-                          placeholder="January 21"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor={`assignment-description-${index}`}>Description</Label>
+                        <Label htmlFor={`assignment-description-${index}`}>
+                          Description
+                        </Label>
                         <Input
                           id={`assignment-description-${index}`}
                           value={assignment.description}
-                          onChange={(e) => updateAssignment(index, "description", e.target.value)}
+                          onChange={(e) =>
+                            updateAssignment(
+                              index,
+                              "description",
+                              e.target.value
+                            )
+                          }
                           placeholder="Implement a Water Table Management System"
                         />
                       </div>
@@ -411,14 +482,19 @@ export default function SyllabusGenerator() {
                       size="icon"
                       onClick={() => removeAssignment(index)}
                       disabled={assignments.length === 1}
-                      className="shrink-0"
+                      className="shrink-0 self-center"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
               ))}
-              <Button type="button" variant="outline" onClick={addAssignment} className="w-full bg-transparent">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={addAssignment}
+                className="w-full bg-transparent"
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Assignment
               </Button>
@@ -428,8 +504,12 @@ export default function SyllabusGenerator() {
           {/* Course Description */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Course Description</CardTitle>
-              <CardDescription>Describe what this course covers</CardDescription>
+              <CardTitle className="text-foreground">
+                Course Description
+              </CardTitle>
+              <CardDescription>
+                Describe what this course covers
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Textarea
@@ -445,8 +525,12 @@ export default function SyllabusGenerator() {
           {/* Learning Outcomes */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Learning Outcomes</CardTitle>
-              <CardDescription>What students will learn in this course</CardDescription>
+              <CardTitle className="text-foreground">
+                Learning Outcomes
+              </CardTitle>
+              <CardDescription>
+                What students will learn in this course
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <RichTextEditor
@@ -460,7 +544,9 @@ export default function SyllabusGenerator() {
           {/* Course Rationale */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Course Rationale</CardTitle>
+              <CardTitle className="text-foreground">
+                Course Rationale
+              </CardTitle>
               <CardDescription>Why this course is important</CardDescription>
             </CardHeader>
             <CardContent>
@@ -477,8 +563,12 @@ export default function SyllabusGenerator() {
           {/* Class Format */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Class Format and Course Communication</CardTitle>
-              <CardDescription>How the class will be conducted and communication methods</CardDescription>
+              <CardTitle className="text-foreground">
+                Class Format and Course Communication
+              </CardTitle>
+              <CardDescription>
+                How the class will be conducted and communication methods
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <RichTextEditor
@@ -492,40 +582,71 @@ export default function SyllabusGenerator() {
           {/* Evaluation Criteria */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Evaluation Criteria</CardTitle>
-              <CardDescription>Grading breakdown for the course</CardDescription>
+              <CardTitle className="text-foreground">
+                Evaluation Criteria
+              </CardTitle>
+              <CardDescription>
+                Grading breakdown for the course
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {evaluationCriteria.map((item, index) => (
-                <div key={index} className="space-y-3 p-4 border border-border rounded-lg">
+                <div
+                  key={index}
+                  className="space-y-3 p-4 border border-border rounded-lg"
+                >
                   <div className="flex gap-4 items-start">
                     <div className="flex-1 space-y-3">
                       <div className="grid md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor={`eval-name-${index}`}>Item Name</Label>
+                          <Label htmlFor={`eval-name-${index}`}>
+                            Item Name
+                          </Label>
                           <Input
                             id={`eval-name-${index}`}
                             value={item.name}
-                            onChange={(e) => updateEvaluationItem(index, "name", e.target.value)}
+                            onChange={(e) =>
+                              updateEvaluationItem(
+                                index,
+                                "name",
+                                e.target.value
+                              )
+                            }
                             placeholder="Assignments"
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor={`eval-percentage-${index}`}>Percentage</Label>
+                          <Label htmlFor={`eval-percentage-${index}`}>
+                            Percentage
+                          </Label>
                           <Input
                             id={`eval-percentage-${index}`}
                             value={item.percentage}
-                            onChange={(e) => updateEvaluationItem(index, "percentage", e.target.value)}
+                            onChange={(e) =>
+                              updateEvaluationItem(
+                                index,
+                                "percentage",
+                                e.target.value
+                              )
+                            }
                             placeholder="40%"
                           />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor={`eval-description-${index}`}>Description</Label>
+                        <Label htmlFor={`eval-description-${index}`}>
+                          Description
+                        </Label>
                         <Textarea
                           id={`eval-description-${index}`}
                           value={item.description}
-                          onChange={(e) => updateEvaluationItem(index, "description", e.target.value)}
+                          onChange={(e) =>
+                            updateEvaluationItem(
+                              index,
+                              "description",
+                              e.target.value
+                            )
+                          }
                           placeholder="Details about this evaluation component..."
                           rows={2}
                         />
@@ -544,7 +665,12 @@ export default function SyllabusGenerator() {
                   </div>
                 </div>
               ))}
-              <Button type="button" variant="outline" onClick={addEvaluationItem} className="w-full bg-transparent">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={addEvaluationItem}
+                className="w-full bg-transparent"
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Evaluation Item
               </Button>
@@ -558,14 +684,20 @@ export default function SyllabusGenerator() {
               <CardDescription>Additional notes or information</CardDescription>
             </CardHeader>
             <CardContent>
-              <RichTextEditor value={notes} onChange={setNotes} placeholder="Add any additional notes..." />
+              <RichTextEditor
+                value={notes}
+                onChange={setNotes}
+                placeholder="Add any additional notes..."
+              />
             </CardContent>
           </Card>
 
           {/* Student Declaration */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Student Declaration of Absence</CardTitle>
+              <CardTitle className="text-foreground">
+                Student Declaration of Absence
+              </CardTitle>
               <CardDescription>Policy for student absences</CardDescription>
             </CardHeader>
             <CardContent>
@@ -582,8 +714,12 @@ export default function SyllabusGenerator() {
           {/* Exam Requirements */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Midterm and Final Exam Requirements</CardTitle>
-              <CardDescription>Requirements and policies for exams</CardDescription>
+              <CardTitle className="text-foreground">
+                Midterm and Final Exam Requirements
+              </CardTitle>
+              <CardDescription>
+                Requirements and policies for exams
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <RichTextEditor
@@ -597,8 +733,12 @@ export default function SyllabusGenerator() {
           {/* Academic Standards */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Academic Standards</CardTitle>
-              <CardDescription>Academic integrity and standards policies</CardDescription>
+              <CardTitle className="text-foreground">
+                Academic Standards
+              </CardTitle>
+              <CardDescription>
+                Academic integrity and standards policies
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <RichTextEditor
@@ -612,8 +752,12 @@ export default function SyllabusGenerator() {
           {/* Required Texts and Resources */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Required Texts and Resources</CardTitle>
-              <CardDescription>Textbooks and other required materials</CardDescription>
+              <CardTitle className="text-foreground">
+                Required Texts and Resources
+              </CardTitle>
+              <CardDescription>
+                Textbooks and other required materials
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <RichTextEditor
@@ -643,7 +787,9 @@ export default function SyllabusGenerator() {
           {/* Tentative Topics */}
           <Card className="border-border shadow-sm">
             <CardHeader>
-              <CardTitle className="text-foreground">Tentative List of Topics</CardTitle>
+              <CardTitle className="text-foreground">
+                Tentative List of Topics
+              </CardTitle>
               <CardDescription>Course topics and schedule</CardDescription>
             </CardHeader>
             <CardContent>
@@ -659,7 +805,9 @@ export default function SyllabusGenerator() {
           <Card className="border-border shadow-sm">
             <CardHeader>
               <CardTitle className="text-foreground">Important Dates</CardTitle>
-              <CardDescription>Reading week, exam dates, and withdrawal deadlines</CardDescription>
+              <CardDescription>
+                Reading week, exam dates, and withdrawal deadlines
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <RichTextEditor
@@ -671,7 +819,12 @@ export default function SyllabusGenerator() {
           </Card>
 
           {/* Generate Button */}
-          <Button onClick={handleGenerateSyllabus} disabled={isGenerating} size="lg" className="w-full">
+          <Button
+            onClick={handleGenerateSyllabus}
+            disabled={isGenerating}
+            size="lg"
+            className="w-full"
+          >
             {isGenerating ? (
               <>Generating...</>
             ) : (
@@ -684,5 +837,5 @@ export default function SyllabusGenerator() {
         </div>
       </div>
     </main>
-  )
+  );
 }
