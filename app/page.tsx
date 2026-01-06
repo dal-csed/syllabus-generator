@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Plus, Trash2, FileDown } from "lucide-react";
 import { RichTextEditor } from "@/components/rich-text-editor";
+import CustomHeader from "@/components/CustomHeader";
+import CustomFooter from "@/components/CustomFooter";
 
 interface TA {
   name: string;
@@ -206,13 +208,14 @@ export default function SyllabusGenerator() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-background to-secondary/10 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+    <main className="min-h-screen bg-gradient-to-br from-background to-secondary/10">
+      <CustomHeader />
+      <div className="max-w-4xl mx-auto pb-14">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-2 text-balance">
+          {/* <h1 className="text-4xl font-bold text-foreground mb-2 text-balance">
             Create your Syllabus
-          </h1>
-          <p className="text-muted-foreground text-pretty">
+          </h1> */}
+          <p className="text-muted-foreground mt-4 text-pretty">
             Fill in your course details and generate a customized syllabus
             document
           </p>
@@ -836,6 +839,7 @@ export default function SyllabusGenerator() {
           </Button>
         </div>
       </div>
+      <CustomFooter />
     </main>
   );
 }
